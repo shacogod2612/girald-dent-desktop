@@ -1,4 +1,13 @@
 import { useState } from "react";
+import {
+  CalendarDays,
+  Clock,
+  Stethoscope,
+  Check,
+  X,
+  Pencil,
+  Trash2,
+} from "lucide-react";
 
 function Citas({ pacientes, citas, setCitas }) {
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
@@ -280,16 +289,19 @@ function Citas({ pacientes, citas, setCitas }) {
                 {cita.paciente}
               </h3>
 
-              <p>
-                📅 {cita.fecha}
+              <p className="appointment-detail">
+                <CalendarDays size={16} />
+                {cita.fecha}
               </p>
 
-              <p>
-                🕐 {cita.hora}
+              <p className="appointment-detail">
+                <Clock size={16} />
+                {cita.hora}
               </p>
 
-              <p>
-                🦷 {cita.tratamiento}
+              <p className="appointment-detail">
+                <Stethoscope size={16} />
+                {cita.tratamiento}
               </p>
 
               <p>
@@ -310,36 +322,39 @@ function Citas({ pacientes, citas, setCitas }) {
 
                 {cita.estado === "pendiente" && (
                   <>
-                    <button
-                      onClick={() =>
-                        cambiarEstado(cita.id, "atendida")
-                      }
-                    >
-                      ✓ Atendida
-                    </button>
+                  <button
+                    onClick={() =>
+                      cambiarEstado(cita.id, "atendida")
+                    }
+                  >
+                    <Check size={16} />
+                    Atendida
+                  </button>
 
-                    <button
-                      onClick={() =>
-                        cambiarEstado(cita.id, "cancelada")
-                      }
-                    >
-                      ✕ Cancelar
-                    </button>
+                  <button
+                    onClick={() =>
+                      cambiarEstado(cita.id, "cancelada")
+                    }
+                  >
+                    <X size={16} />
+                    Cancelar
+                  </button>
                   </>
                 )}
 
-                <button
-                  onClick={() => editarCita(cita)}
-                >
-                  ✏️ Editar
-                </button>
+                  <button
+                    onClick={() => editarCita(cita)}
+                    >
+                    <Pencil size={16} />
+                    Editar
+                  </button>
 
                 <button
                   onClick={() => eliminarCita(cita.id)}
                 >
-                  🗑️ Eliminar
+                  <Trash2 size={16} />
+                  Eliminar
                 </button>
-
               </div>
 
             </div>
@@ -355,4 +370,3 @@ function Citas({ pacientes, citas, setCitas }) {
 }
 
 export default Citas;
-

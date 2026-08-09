@@ -1,14 +1,19 @@
-function StatCard({ icon, title, value }) {
+function StatCard({ icon: Icon, title, value }) {
   return (
     <div className="stat-card">
-      <span>{icon}</span>
+
+      <div className="stat-card-icon">
+        <Icon size={24} />
+      </div>
 
       <div>
-        <p>{title}</p>
-        <h2>{value}</h2>
+        <h3>{title}</h3>
+        <p>{value}</p>
       </div>
+
     </div>
   );
 }
 
 export default StatCard;
+

@@ -1,6 +1,10 @@
 import { useState } from "react";
-
 import "./App.css";
+import {
+  CalendarDays,
+  Users,
+  CheckCircle,
+} from "lucide-react";
 
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
@@ -29,7 +33,10 @@ function App() {
   return (
     <div className="app">
 
-      <Sidebar cambiarPagina={setPagina} />
+      <Sidebar
+        cambiarPagina={setPagina}
+        pagina={pagina}
+      />
 
       <main className="main">
 
@@ -39,92 +46,109 @@ function App() {
 
             <section className="stats">
 
-              <StatCard
-                icon="📅"
-                title="Citas de hoy"
-                value={citasHoy.length}
-              />
 
-              <StatCard
-                icon="👥"
-                title="Pacientes"
-                value={pacientes.length}
-              />
+            <StatCard
+              icon={CalendarDays}
+              title="Citas de hoy"
+              value={citasHoy.length}
+            />
 
-              <StatCard
-                icon="✓"
-                title="Atendidos hoy"
-                value={atendidosHoy.length}
-              />
+            <StatCard
+              icon={Users}
+              title="Pacientes"
+              value={pacientes.length}
+            />
+
+            <StatCard
+              icon={CheckCircle}
+              title="Atendidos hoy"
+              value={atendidosHoy.length}
+            />
+
+
 
             </section>
 
-            <section className="appointments">
 
-              <div className="section-header">
+          <section className="appointments">
 
-                <h2>Citas de hoy</h2>
+            <div className="section-header">
 
-                <button>
-                  Ver todas
-                </button>
+              <h2>Citas de hoy</h2>
+
+              <button>
+                Ver todas
+              </button>
+
+            </div>
+
+            {citasHoy.length === 0 ? (
+
+              <div className="empty-state">
+
+                <CalendarDays size={42} />
+
+                <h3>
+                  No hay citas para hoy
+                </h3>
+
+                <p>
+                  Las citas registradas aparecerán aquí.
+                </p>
 
               </div>
 
-              {citasHoy.length === 0 ? (
+            ) : (
 
-                <div className="empty-state">
+              <div className="today-appointments">
 
-                  <span>📅</span>
+                {citasHoy.map((cita) => (
 
-                  <h3>
-                    No hay citas para hoy
-                  </h3>
+                  <div
+                    className="appointment-card"
+                    key={cita.id}
+                  >
 
-                  <p>
-                    Las citas registradas aparecerán aquí.
-                  </p>
+                    <h3>
+                      {cita.paciente}
+                    </h3>
 
-                </div>
+                    <p className="appointment-detail">
+                      <Clock size={16} />
+                      {cita.hora}
+                    </p>
 
-              ) : (
+                    <p className="appointment-detail">
+                      <Stethoscope size={16} />
+                      {cita.tratamiento}
+                    </p>
 
-                <div className="today-appointments">
+                    <p className="appointment-status">
 
-                  {citasHoy.map((cita) => (
+                      {cita.estado === "pendiente" ? (
+                        <>
+                          <span className="status-dot pendiente"></span>
+                          Pendiente
+                        </>
+                      ) : (
+                        <>
+                          <span className="status-dot atendida"></span>
+                          Atendida
+                        </>
+                      )}
 
-                    <div
-                      className="appointment-card"
-                      key={cita.id}
-                    >
+                    </p>
 
-                      <h3>
-                        {cita.paciente}
-                      </h3>
+                  </div>
 
-                      <p>
-                        🕐 {cita.hora}
-                      </p>
+                ))}
 
-                      <p>
-                        🦷 {cita.tratamiento}
-                      </p>
+              </div>
 
-                      <p>
-                        {cita.estado === "pendiente"
-                          ? "🟡 Pendiente"
-                          : "🟢 Atendida"}
-                      </p>
+            )}
 
-                    </div>
+          </section>
 
-                  ))}
-
-                </div>
-
-              )}
-
-            </section>
           </>
         )}
 

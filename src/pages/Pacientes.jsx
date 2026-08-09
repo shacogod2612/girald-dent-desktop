@@ -1,4 +1,10 @@
 import { useState } from "react";
+import {
+  Phone,
+  CreditCard,
+  Pencil,
+  Trash2,
+} from "lucide-react";
 
 function Pacientes({ pacientes, setPacientes }) {
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
@@ -223,27 +229,29 @@ function Pacientes({ pacientes, setPacientes }) {
                 {paciente.nombre}
               </h3>
 
-              <p>
-                📱 {paciente.telefono || "Sin teléfono"}
+              <p className="patient-detail">
+                <Phone size={16} />
+                {paciente.telefono || "Sin teléfono"}
               </p>
-
-              <p>
-                🪪 DNI: {paciente.dni || "No registrado"}
+              <p className="patient-detail">
+                <CreditCard size={16} />
+                DNI: {paciente.dni || "No registrado"}
               </p>
-
               <div className="patient-actions">
 
-                <button
-                  onClick={() => editarPaciente(paciente)}
-                >
-                  ✏️ Editar
-                </button>
+              <button
+                onClick={() => editarPaciente(paciente)}
+              >
+                <Pencil size={16} />
+                Editar
+              </button>
 
-                <button
-                  onClick={() => eliminarPaciente(paciente.id)}
-                >
-                  🗑️ Eliminar
-                </button>
+              <button
+                onClick={() => eliminarPaciente(paciente.id)}
+              >
+                <Trash2 size={16} />
+                Eliminar
+              </button>
 
               </div>
 
